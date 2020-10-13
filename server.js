@@ -15,10 +15,15 @@ app.use('/articles', articleRouter);
 app.get('/', (req, res) => {
     const artiles = [{
         title : 'Test Articles',
-        createdAt : Date.now(),
+        createdAt : new Date(),
         description : 'Test Description'
+    },
+    {
+        title : 'Test Articles 2',
+        createdAt : new Date(),
+        description : 'Test Description 2' 
     }]
-    res.render('index', { articles : artiles });
+    res.render('articles/index', { articles : artiles });
 })
 
 app.listen(PORT, () => {
