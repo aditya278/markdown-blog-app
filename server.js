@@ -1,19 +1,25 @@
 const express = require('express');
+const mongoose = require('mongoose');
 const articleRouter = require('./routes/articles');
 const app = express();
 
 const PORT = process.env.PORT || 5000;
 
+//Connect to the DB
+mongoose.connect('mongodb://localhost/blog',{
+    useNewUrlParser : true,
+    useUnifiedTopology : true
+});
+
 //We'll write all views in ejs
 //then view engine will convert that ejs code to html
 app.set('view engine', 'ejs');
 
-
-//Tell our app to use the Article Router when the route is /articles
-app.use('/articles', articleRouter);
+//This will allow express to access all the data being sent from the form in the body
+app.use(express.urlencoded({ extended : false }));
 
 app.get('/', (req, res) => {
-    const artiles = [{
+    const articles = [{
         title : 'Test Articles',
         createdAt : new Date(),
         description : 'Test Description'
@@ -23,8 +29,11 @@ app.get('/', (req, res) => {
         createdAt : new Date(),
         description : 'Test Description 2' 
     }]
-    res.render('articles/index', { articles : artiles });
+    res.render('articles/index', { articles : articles });
 })
+
+//Tell our app to use the Article Router when the route is /articles
+app.use('/articles', articleRouter);
 
 app.listen(PORT, () => {
     console.log('Server Started at Port: ',PORT);
