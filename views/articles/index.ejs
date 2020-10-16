@@ -5,23 +5,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <title>Blog</title>
+    <style>
+        .container {
+            text-align: left;
+            width: 60%;
+        }
+        .name {
+            font-size: x-large;
+        }
+        .author {
+            font-size: 50px;
+        }
+        .card-body {
+            display : flex;
+        }
+        .blog-desc {
+            width : 99%;
+        }
+        .btns {
+            display : flex;
+            flex-direction: column;
+        }
+    </style>
 </head>
 <body>
+    <br/>
     <div class = "container">
-        <h1 class="mb-4">Blog Articles</h1>
-        <a href="/articles/new" class="btn btn-success">New Article</a>
+        <h4 class="mb-2">Welcome To</h4>
+        <span class="author">Aditya's</span> <span class="name">Blog Posts</span> <br/>
+        <a href="/articles/new" class="btn btn-success">New Article</a> <br/> <br/>
         <% articles.forEach(article => { %>
             <div class="card mt-4">
                 <div class="card-body">
-                    <h4 class="card-title"><%= article.title %></h4>
-                    <div class="card-subtitle text-muted mb-2">
-                        <%= article.createdAt.toLocaleDateString() %>
+                    <div class="blog-desc">
+                        <h4 class="card-title"><%= article.title %></h4>
+                        <div class="card-subtitle text-muted mb-2">
+                            <%= article.createdAt.toLocaleDateString() %>
+                        </div>
+                        <div class="card-text mb-2"><%= article.description %></div>
                     </div>
-                    <div class="card-text mb-2"><%= article.description %></div>
-                    <a href="articles/<%= article.slug %>" class="btn btn-primary">Read More</a>
-                    <a href="articles/edit/<%= article.id %>" class="btn btn-info">Edit</a>
-                    <form action="/articles/<%= article.id %>?_method=DELETE" method="POST" class="d-inline">
-                        <button type="submit" class="btn btn-danger">Delete</button>
+                    <div class="btns">
+                        <a href="articles/<%= article.slug %>" class="btn btn-primary mb-2">Read More</a>
+                        <a href="articles/edit/<%= article.id %>" class="btn btn-info mb-2">Edit</a>
+                        <form action="/articles/<%= article.id %>?_method=DELETE" method="POST" class="d-inline">
+                        <button style="width: 100%;" type="submit" class="btn btn-danger mb-2">Delete</button>
+                    </div>
                     </form>
                 </div>
             </div>
