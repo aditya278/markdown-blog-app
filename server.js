@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const articleRouter = require('./routes/articles');
+const config = require('./config/default.json');
 const Article = require('./models/article');
 const methodOverride = require('method-override');
 const app = express();
@@ -8,10 +9,15 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 //Connect to the DB
-mongoose.connect('mongodb://localhost/blog',{
+mongoose.connect(config.MONGODB_URI,{
     useNewUrlParser : true,
     useUnifiedTopology : true,
     useCreateIndex : true
+}, (err) => {
+    if(!err)
+        console.log("App connected to database.");
+    else
+        console.log("Error in connecting to Database : ", err);
 });
 
 //We'll write all views in ejs
