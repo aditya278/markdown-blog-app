@@ -4,6 +4,8 @@ const slugify = require('slugify');
 const createDomPurify = require('dompurify');
 const { JSDOM } = require('jsdom');
 const dompurify = createDomPurify(new JSDOM().window);  //For Sanatizing the HTML
+const showdown = require('showdown');
+const converter = new showdown.Converter();
 
 const articleSchema = new mongoose.Schema({
     title : {
@@ -39,7 +41,8 @@ articleSchema.pre('validate', function(next) {
     }
 
     if(this.markdown) {
-        this.sanitizedHtml = dompurify.sanitize(marked(this.markdown));
+        //this.sanitizedHtml = dompurify.sanitize(marked(this.markdown));
+        this.sanitizedHtml = converter.makeHtml(this.markdown);
     }
     next();
 });

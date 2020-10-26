@@ -7,15 +7,15 @@
     <title>Blog</title>
 </head>
 <body>
-    <div class = "container">
+    <div class = "card mt-4" style="margin:auto; width:55%;">
         <h1 class="mb-1"><%= article.title %></h1>
         <div class="text-muted mb-2">
             <%= article.createdAt.toLocaleDateString() %>
         </div>
         <a href="/" class="btn btn-secondary">All Articles</a>
         <a href="/articles/edit/<%= article.id%>" class="btn btn-info">Edit</a>
-        
-        <div>
+        <br><br>
+        <div style="margin: 0 5%">
             <%- article.sanitizedHtml %>
         </div>
     </div>
